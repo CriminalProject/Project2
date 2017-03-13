@@ -21,9 +21,15 @@ def getUser(request):
     
     else:
         return HttpResponseRedirect('user/showUsers/')
+
     
 def showUsers(request):
-    users = User.getUsers()
-    context = Context({'Users' : users})
-    return render(request,'showUsers.html',context)
+  #  users = User.getUsers()
+  #  context = Context({'Users' : users})
+    return render(request,'showUsers.html')
+
+def addUser(request):
+  #  users = User.getUsers()
+  #  context = Context({'Users' : users})
+    return render(request,'AddUser.html')
     

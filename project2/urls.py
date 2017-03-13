@@ -19,8 +19,9 @@ from django.conf.urls.static import static
 from django.conf import settings
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^app/',include('app.urls')),
+    url(r'^',include('app.urls')),
     url(r'^user/',include('user.urls')),
+    # url(r'^/',include('app.urls')),
    #url(r'^restaurant/', include('restaurant.urls')),
  
    #url(r'^grading/',include('grading.urls')),
