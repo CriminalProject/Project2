@@ -1,0 +1,18 @@
+{% extends "header.html" %}
+{% block title%}User{%endblock%}
+{% block content %}
+
+<div class="container">
+    <div class="col-md-6">
+    <div id="logbox">
+      <form id="getUser" method="post" action="/getUser">
+        <h1>create an account</h1>
+        <input name="userName" type="text" placeholder="Choose an username?" pattern="^[\w]{3,16}$" autofocus="autofocus" required="required" class="input pass"/>
+        <input name="userFirstName" type="text" placeholder="What's your first name" required="required" class="input pass"/>
+        <input name="userLastName" type="text" placeholder="What's your last name" required="required" class="input pass"/>
+        <input name="userEmail" type="email" placeholder="Email address" class="input pass"/>
+        <input type="submit" value="Add User" class="inputButton"/>
+      </form>
+    </div>
+   </div>
+{%endblock%}
