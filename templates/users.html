@@ -6,7 +6,7 @@
     <div class="container">
 
 
-   <form action="{{ url_for('showUsers') }}" method = "post">
+   <form action="#" method = "post">
   <table id="usersTable" class="table">
 	 <thead>
       <tr>
@@ -17,13 +17,14 @@
       </tr>
     </thead>
 	<tbody>
-		{% for userName, userFirstName, userSurname, userEmail in User %}
+	{%if users%}
+		{% for user in users %}
 		<tr>
-			<td class="UsersModelItem">{{userName}}</td>
-			<td class="UsersModelItem">{{userFirstName}}</td>
-			<td class="UsersModelItem">{{userSurname}}</td>
-			<td class="UsersModelItem">{{userEmail}}</td>
-			<td class="UsersTableItem"><a href="{{ url_for('user_delete', deleteuser=userName) }}">Delete</a>
+			<td class="UsersModelItem">{{user.userName}}</td>
+			<td class="UsersModelItem">{{user.userFirstName}}</td>
+			<td class="UsersModelItem">{{user.userSurname}}</td>
+			<td class="UsersModelItem">{{user.userEmail}}</td>
+			<td class="UsersTableItem"><a href="#">Delete</a>
 			<td class="UsersTableItem"><a">Update   <!-- BU KISIMDAN EMİN DEĞİLİM -->
 			<div class="container">
 			 <div class="panel-group">
@@ -71,14 +72,16 @@
 </a>
 		</tr>
 		{% endfor %}
+		{% endif %}
 		</tbody>
 	</table>
-
-
-
-
-
+	</form>
+		<form action="/user/addUser">
+		<button type="submit"  id="btn_sign" class="btn btn-default">Add
+				User</button>	
+		</form>
     </div> <!-- /container -->
+
 
   </body>
 

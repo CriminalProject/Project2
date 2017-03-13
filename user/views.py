@@ -24,9 +24,9 @@ def getUser(request):
 
     
 def showUsers(request):
-  #  users = User.getUsers()
-  #  context = Context({'Users' : users})
-    return render(request,'showUsers.html')
+    users = User.getUsers(User)
+    context = Context({'users' : users})
+    return render(request,'users.html')
 
 def addUser(request):
   #  users = User.getUsers()
