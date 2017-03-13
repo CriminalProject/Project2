@@ -11,9 +11,9 @@ def getUser(request):
         newUserEmail = request.POST.get('userEmail', None)
         
         try:
-            check = User.objects.get(userName = newUserName)            
+            data = User.objects.get(userName = newUserName)            
         except User.DoesNotExist:
-            newUser = User(userName = newUserName,userFirstName = newUserFirstName , userSurname = newUserLastName, userMail = newUserEmail)
+            newUser = User(userName = newUserName,userFirstName = newUserFirstName , userSurname = newUserLastName, userEmail = newUserEmail)
             newUser.save()
             return HttpResponseRedirect('user/showUsers/')
         
@@ -26,10 +26,8 @@ def getUser(request):
 def showUsers(request):
     users = User.getUsers(User)
     context = Context({'users' : users})
-    return render(request,'users.html')
+    return render(request,'users.html',context)
 
 def addUser(request):
-  #  users = User.getUsers()
-  #  context = Context({'Users' : users})
     return render(request,'AddUser.html')
     
