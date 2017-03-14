@@ -12,12 +12,19 @@ class Restaurant(models.Model):
     def deleteRest(self,delRestName):
         self.objects.get(restName = delRestName).delete()
         self.save()
+        
     def updateRestStatus(self,newStatus,upRestName):
         self.objects.get(restName = upRestName).update(serviceStatus = newStatus)
         self.save()
+        
     def updateRestName(self,upRestName,curRestName):
         self.objects.get(restName = curRestName).update(restName = upRestName)
         self.save()    
+        
     def updateModeOfTransport(self,newMode,upRestName):
         self.objects.get(restName = upRestName).update(modeOfTransport = newMode)
         self.save()
+    
+    def getRestaurants(self):
+        return self.objects.values()
+        

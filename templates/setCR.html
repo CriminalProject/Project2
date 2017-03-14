@@ -1,0 +1,17 @@
+{% extends "header.html" %}
+{% block title%}User{%endblock%}
+{% block content %}
+<body>
+<div class="container">
+    <div class="col-md-6">
+    <div id="logbox">
+      <form id="getUser" method="POST" action="/app/setCR">
+        <h1>set Base elements</h1>
+        <input name="currentCity" type="text" placeholder="current city?" pattern="^[\w]{3,16}$" autofocus="autofocus" required="required" class="input pass"/>
+        <input name="period" type="text" placeholder="period" required="required" class="input pass"/>/>
+        <input type="submit" value="Add CR" class="inputButton"/>
+      </form>
+    </div>
+   </div>
+   </body>
+{%endblock%}

@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from user.models import User
+from .models import User
+from app.models import App
 from django.http import HttpResponseRedirect
 from django.template import Context
 # Create your views here.
@@ -9,16 +10,15 @@ def getUser(request):
         newUserFirstName = request.POST.get('userFirstName', None)
         newUserLastName = request.POST.get('userLastName', None)
         newUserEmail = request.POST.get('userEmail', None)
-        
+        point = App.getCR(App)
         try:
-            data = User.objects.get(userName = newUserName)            
+            data = User.objects.get(userName = newUserName)
+            return HttpResponseRedirect('user/showUsers/')            
         except User.DoesNotExist:
             newUser = User(userName = newUserName,userFirstName = newUserFirstName , userSurname = newUserLastName, userEmail = newUserEmail)
             newUser.save()
             return HttpResponseRedirect('user/showUsers/')
-        
-        return HttpResponseRedirect('user/showUsers/')
-    
+            
     else:
         return HttpResponseRedirect('user/showUsers/')
 

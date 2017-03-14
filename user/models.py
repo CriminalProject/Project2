@@ -6,7 +6,7 @@ class User(models.Model):
     userSurname = models.CharField(max_length= 40)
     userFirstName = models.CharField(max_length= 40)
     userEmail = models.EmailField()
-    
+    userPoints = models.IntegerField()
     
     
     

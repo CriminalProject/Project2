@@ -6,3 +6,6 @@ def app(request):
 
 def home(request):
     return render(request,'home.html')
+
+def setCR(request):
+    return render(request,'setCR.html')

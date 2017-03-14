@@ -21,8 +21,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^',include('app.urls')),
     url(r'^user/',include('user.urls')),
+    url(r'^restaurant/', include('restaurant.urls')),
     # url(r'^/',include('app.urls')),
-   #url(r'^restaurant/', include('restaurant.urls')),
+   
  
    #url(r'^grading/',include('grading.urls')),
    #url(r'^calculation/',include('grading.urls')),
