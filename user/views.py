@@ -30,4 +30,7 @@ def showUsers(request):
 
 def addUser(request):
     return render(request,'AddUser.html')
+
+def updateUser(request):
+    return render(request,'updateUser.html')
     

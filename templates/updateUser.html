@@ -1,0 +1,73 @@
+{% extends "header.html" %} 
+{% block content %}
+<html>
+
+<form action="user/updateUser/" method="POST">
+
+			<div class="container">
+				<div class="panel-group" id="accordion">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapse1">Update Username</a>
+							
+						</div>
+						<div id="collapse1" class="panel-collapse collapse in">
+							<div class="panel-body">
+								<input type="text" name="user" required="required"
+									value="" style="width: 95%">
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapse2">Name: </a>
+							</h4>
+						</div>
+						<div id="collapse2" class="panel-collapse collapse">
+							<div class="panel-body">
+							<input type="text" name="user" required="userFirstName"
+									value="" style="width: 95%">
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapse3">Surname: </a>
+							</h4>
+						</div>
+						<div id="collapse3" class="panel-collapse collapse">
+							<div class="panel-body">
+								<input type="text" name="user" required="userSurname"
+									value="" style="width: 95%">
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									href="#collapse3">Email </a>
+							</h4>
+						</div>
+						<div id="collapse4" class="panel-collapse collapse">
+							<div class="panel-body">
+								<input type="text" name="user" required="userEmail"
+									value="" style="width: 95%">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<button type="submit" id="btn_sign" class="btn btn-default">Update User</button>
+
+
+	<!-- /container -->
+</html>
+	{% endblock %}

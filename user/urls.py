@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'showUsers/', views.showUsers, name='showUsers'),
     url(r'getUser', views.getUser, name='getUser'),
     url(r'addUser/', views.addUser, name='add'),
+    url(r'updateUser/',views.updateUser, name='updateUser'),
 ]

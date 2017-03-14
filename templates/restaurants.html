@@ -1,0 +1,42 @@
+{% extends "header.html" %}
+
+{% block content %}
+
+  <body>
+    <div class="container">
+
+
+   <form action="#" method = "post">
+  <table id="restaurantTable" class="table">
+	 <thead>
+      <tr>
+        <th>User Name</th>
+        <th>First Name</th>
+        <th>Surname</th>
+        <th>E-mail</th>
+      </tr>
+    </thead>
+	<tbody>
+	{%if users%}
+		{% for user in users %}
+		<tr>
+			<td class="UsersModelItem">{{restaurant.restName}}</td>
+			<td class="UsersModelItem">{{restaurant.weatherCondition}}</td>
+			<td class="UsersModelItem">{{restaurant.modeOfTransport}}</td>
+			<td class="UsersModelItem">{{restaurant.serviceStatus}}</td>
+			<td class="UsersTableItem"><a href="#">Delete</a>
+			<td class="UsersTableItem"><a">Update </a>
+		</tr>
+		{% endfor %}
+		{% endif %}
+		</tbody>
+	</table>
+	</form>
+
+    </div> <!-- /container -->
+
+
+  </body>
+
+
+{% endblock %}

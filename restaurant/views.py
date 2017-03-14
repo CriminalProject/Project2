@@ -29,6 +29,6 @@ def showRestaurants(request):
     
     
 def addRestaurant(request):
-    return render('addRestaurant.html')
+    return render(request,'addRestaurant.html')
     
     
