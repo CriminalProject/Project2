@@ -15,7 +15,7 @@ def getUser(request):
             data = User.objects.get(userName = newUserName)
             return HttpResponseRedirect('user/showUsers/')            
         except User.DoesNotExist:
-            newUser = User(userName = newUserName,userFirstName = newUserFirstName , userSurname = newUserLastName, userEmail = newUserEmail)
+            newUser = User(userName = newUserName,userFirstName = newUserFirstName , userSurname = newUserLastName, userEmail = newUserEmail,userPoints = point.calculationPeriod)
             newUser.save()
             return HttpResponseRedirect('user/showUsers/')
             

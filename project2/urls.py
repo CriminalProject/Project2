@@ -26,6 +26,6 @@ urlpatterns = [
    
  
    #url(r'^grading/',include('grading.urls')),
-   #url(r'^calculation/',include('grading.urls')),
+   url(r'^calculation/',include('calculation.urls')),
     
 ]  +  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

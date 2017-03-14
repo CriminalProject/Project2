@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.fields import IntegerField
 
 # Create your models here.
 
@@ -7,7 +8,7 @@ class Restaurant(models.Model):
     weatherCondition = models.BooleanField()
     modeOfTransport = models.BooleanField()
     serviceStatus = models.BooleanField()
-    
+    serviceCounter = IntegerField()
     
     def deleteRest(self,delRestName):
         self.objects.get(restName = delRestName).delete()
