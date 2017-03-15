@@ -1,0 +1,17 @@
+{% extends "header.html" %}
+{% block content %}
+
+{% if Points %}
+
+<table id="usersTable" class="table">
+	{% for point in Points %}
+		<tr>
+				<td class="UsersModelItem"> {{point.Restaurant.restName}} </td>
+				<td class="UsersModelItem"> {{point.Restaurant}} </td>
+				<td class="UsersModelItem">{{point.point}} </td>
+		</tr>
+	{% endfor %}
+
+		</table>
+{% endif %}
+{% endblock %}

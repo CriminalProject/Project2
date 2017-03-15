@@ -7,4 +7,6 @@ class Points(models.Model):
     restaurant = models.ForeignKey(Restaurant)
     point = models.IntegerField()
     
-    
+    def newPoint(self,User,Restaurant,inPoint):
+        newPoint = Points(user = User,restaurant = Restaurant,point =inPoint)
+        newPoint.save()

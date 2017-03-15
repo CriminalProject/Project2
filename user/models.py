@@ -10,17 +10,20 @@ class User(models.Model):
     
     
     
-    def updateUser(self,User):
-        self.userName = User.userName
-        self.userSurname = User.userSurname
-        self.userFirstName = User.userFirstName
-        self.userEmail = User.userEmail
-        self.save()
+    def updateUser(self,User,oldUserName):
+        upUser = self.objects.get(userName = oldUserName)
+        upUser.userName = User.userName
+        upUser.userSurname = User.userSurname
+        upUser.userFirstName = User.userFirstName
+        upUser.userEmail = User.userEmail
+        upUser.save()
         
     
     def deleteUser(self,delUser):
         self.objects.get(userName = delUser).delete()
-        self.save()
         
     def getUsers(self):
         return self.objects.values()
+    
+    def grade(self,points):
+        self.userPoints = self.userPoints - points

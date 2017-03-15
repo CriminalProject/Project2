@@ -1,3 +1,49 @@
 from django.shortcuts import render
-
+from .models import Points
+from user.models import User
+from restaurant.models import Restaurant
+from app.models import App
+from django.http import HttpResponseRedirect
+from django.template import Context
 # Create your views here.
+
+def grading(request):
+    users = User.getUsers(User)
+    context = Context({'users' : users})
+    return render(request,'gradingUser.html',context)
+
+def direct(request):
+    if request.method == 'POST':
+        newUserName = request.POST.get('userName',None)
+        user = User.objects.get(userName = newUserName)
+        restaurants = Restaurant.getRestaurants(Restaurant)
+        context = Context({'Restaurants' : restaurants,'user':user})
+        return render(request,'gradingPoints.html',context)
+        
+        
+def getPoint(request):
+    if request.method == 'POST':
+        gradUserName = request.POST.get('userName',None)
+        inRestName = request.POST.getlist('restName[]',None)
+        points = request.POST.getlist("points[]")
+        counter = 0
+        for point in points:
+            counter = counter + int(point)
+            
+        if counter <= 100:
+            user = User.objects.get(userName = gradUserName)
+            i = 0
+            for point in points:
+                 restN = inRestName[i]
+                 rest = Restaurant.objects.get(restName = restN)
+                 Points.newPoint(Points,user,rest,point)
+                 user.grade(int(point))
+                 i = i + 1 
+            enteredPoints = Points.objects.values() 
+            user.save()
+            context = Context({'Points' : enteredPoints})
+            return render(request,'enteredPoints.html',context)
+        else:
+            restaurants = Restaurant.getRestaurants(Restaurant)
+            context = Context({'Restaurants' : restaurants})
+            return render(request,'restaurants.html',context)

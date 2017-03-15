@@ -7,7 +7,9 @@ def app(request):
 
 
 def home(request):
-    return render(request,'home.html')
+    currentCity = App.getCR(App).currentCity
+    context = Context({'currentCity': currentCity})
+    return render(request,'home.html',context)
 
 def setCR(request):
     if request.method == 'POST':

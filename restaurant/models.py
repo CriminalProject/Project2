@@ -12,19 +12,27 @@ class Restaurant(models.Model):
     
     def deleteRest(self,delRestName):
         self.objects.get(restName = delRestName).delete()
-        self.save()
         
     def updateRestStatus(self,newStatus,upRestName):
-        self.objects.get(restName = upRestName).update(serviceStatus = newStatus)
-        self.save()
+        upRestaurant = self.objects.get(restName = upRestName)
+        upRestaurant.serviceStatus = newStatus
+        upRestaurant.save()
         
     def updateRestName(self,upRestName,curRestName):
-        self.objects.get(restName = curRestName).update(restName = upRestName)
-        self.save()    
+        upRestaurant = self.objects.get(restName = curRestName)
+        upRestaurant.restName = upRestName
+        upRestaurant.save()    
         
     def updateModeOfTransport(self,newMode,upRestName):
-        self.objects.get(restName = upRestName).update(modeOfTransport = newMode)
-        self.save()
+        upRestaurant = self.objects.get(restName = upRestName)
+        upRestaurant.modeOfTransport = newMode
+        upRestaurant.save()
+        
+        
+    def updateWeatherCondition(self,newCondition,upRestName):
+        upRestaurant = self.objects.get(restName = upRestName)
+        upRestaurant.weatherCondition = newCondition
+        upRestaurant.save()
     
     def getRestaurants(self):
         return self.objects.values()

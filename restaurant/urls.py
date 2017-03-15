@@ -3,7 +3,8 @@ from . import views
 
 
 urlpatterns = [
-    url(r'showRest/', views.showRestaurants, name='showRests'),
-    url(r'getRest', views.getRestaurant, name='getRest'),
-    url(r'addRest/', views.addRestaurant, name='addRest'),
+    url(r'Rest', views.getRestaurant, name='getRest'),
+     url(r'status', views.setStatus, name='getRest'),
+     url(r'update', views.update, name='upRest'),
+     url(r'delete', views.delete, name='delRest'),
 ]

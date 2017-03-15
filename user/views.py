@@ -31,3 +31,32 @@ def showUsers(request):
 def addUser(request):
     return render(request,'AddUser.html')
     
+    
+def updateDirect(request):
+    if request.method == 'POST':
+        inUserName = request.POST.get('userName',None)
+        user = User.objects.get(userName = inUserName)
+    context = Context({'user' : user})
+    return render(request,'updateUser.html',context)
+
+def update(request):
+     if request.method == 'POST':
+        oldUserName = request.POST.get('oldUserName',None)
+        newUserName = request.POST.get('userName',None)
+        newUserFirstName = request.POST.get('userFirstName', None)
+        newUserLastName = request.POST.get('userLastName', None)
+        newUserEmail = request.POST.get('userEmail', None)
+        point = App.getCR(App)
+        upUser = User(userName = newUserName,userFirstName = newUserFirstName , userSurname = newUserLastName, userEmail = newUserEmail,userPoints = point.calculationPeriod)
+        User.updateUser(User,upUser,oldUserName)
+        return HttpResponseRedirect('user/showUsers/')
+     else:
+        return HttpResponseRedirect('user/showUsers/')
+    
+def delete(request):
+     if request.method == 'POST':
+        delUserName = request.POST.get('userName',None)
+        User.deleteUser(User,delUserName)
+        return HttpResponseRedirect('user/showUsers/')
+     else:
+        return HttpResponseRedirect('user/showUsers/')
