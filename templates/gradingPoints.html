@@ -1,5 +1,11 @@
 {% extends "header.html" %}
 {% block content %}
+<div class="row">
+<div class="col-sm-1"></div>
+      <div class="col-sm-2"> <img src="/static/images/grade.png" class="img-square" alt="foodiconset"
+		width="100" height="100">
+      </div>
+    <div class="col-sm-6">
 {% if user %}
 <h3>Your points: {{user.userPoints}}</h3>
 {% endif %}
@@ -19,4 +25,6 @@
 		<button type="submit" class="btn btn-default">Submit</button>
 	</form>
 {% endif %}
+</div>
+</div>
 {% endblock %}
