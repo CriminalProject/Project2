@@ -27,11 +27,12 @@ def getPoint(request):
         inRestName = request.POST.getlist('restName[]',None)
         points = request.POST.getlist("points[]")
         counter = 0
+        user = User.objects.get(userName = gradUserName)
         for point in points:
             counter = counter + int(point)
             
-        if counter <= 100:
-            user = User.objects.get(userName = gradUserName)
+        if counter <= user.userPoints:
+            
             i = 0
             for point in points:
                  restN = inRestName[i]
@@ -41,6 +42,7 @@ def getPoint(request):
                  i = i + 1 
             enteredPoints = Points.objects.values() 
             user.save()
+            somePoints = user.Points
             context = Context({'Points' : enteredPoints})
             return render(request,'enteredPoints.html',context)
         else:

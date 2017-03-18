@@ -15,3 +15,7 @@ def setWeather(request):
         currentWt = Weather.getCurrent(Weather)
         context = Context({'Context': currentWt})
         return render(request,'calNweather.html',context)
+    
+    
+    
+    

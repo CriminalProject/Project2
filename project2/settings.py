@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'background_task',
 ]
 
 MIDDLEWARE = [
@@ -112,7 +113,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+CRONJOBS = [
+    ('*/1 * * * *', 'myproject.cron.my_scheduled_job')
+]
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 

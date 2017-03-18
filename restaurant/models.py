@@ -1,6 +1,5 @@
 from django.db import models
 from django.db.models.fields import IntegerField
-
 # Create your models here.
 
 class Restaurant(models.Model):
@@ -36,4 +35,8 @@ class Restaurant(models.Model):
     
     def getRestaurants(self):
         return self.objects.values()
+    
+    def getGrade(self):
+        return self.Points
+            
         

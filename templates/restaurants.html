@@ -47,10 +47,10 @@
 		<tr>
 			<td class="UsersModelItem">{{restaurant.restName}}</td>
 			<td class="UsersModelItem">{{restaurant.weatherCondition}}</td>
-			{%if restaurant.serviceStatus is True%}
+			{%if restaurant.modeOfTransport is True%}
 			<td class="UsersModelItem">Vehicle</td>
 			{%endif%}
-			{%if restaurant.serviceStatus is False%}
+			{%if restaurant.modeOfTransport is False%}
 			<td class="UsersModelItem">Pedestrian</td>
 			{%endif%}
 			<td>
@@ -83,7 +83,7 @@
 		<input id="modeOfTransport1" name="modeOfTransport" type="checkbox" checked data-toggle="toggle" data-on="Vehicle" data-off="pedestrian" >
 		<div class="form-group">
 		<font size="5">Available in bad weather ?</font>
-		<input id="weatherCondition1" name="weatherMode2" type="checkbox" checked data-toggle="toggle" data-on="Yeap !" data-off="Bismillah No!" >
+		<input id="weatherCondition1" name="weatherMode" type="checkbox" checked data-toggle="toggle" data-on="Yeap !" data-off="Bismillah No!" >
 		</div>
 		<button type="submit" id="share" class="btn btn-default">Add
 			Restaurant</button>

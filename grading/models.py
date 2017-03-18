@@ -8,5 +8,11 @@ class Points(models.Model):
     point = models.IntegerField()
     
     def newPoint(self,User,Restaurant,inPoint):
-        newPoint = Points(user = User,restaurant = Restaurant,point =inPoint)
+        if Points.objects.filter(user = User,restaurant = Restaurant) is None:
+            newPoint = Points(user = User,restaurant = Restaurant,point =inPoint)
+        else:
+            newPoint = Points.objects.filter(user = User,restaurant = Restaurant)
+            newPoint.point = inPoint + newPoint.point
+            
+            
         newPoint.save()

@@ -21,6 +21,8 @@ class App(models.Model):
         if self.periodCounter == 0:
             self.calculationCheck = False
         else:
-            self.periodCounter = self.periodCounter - 1
+            app = App.getCR(App)
+            app.periodCounter = app.periodCounter -1
+            app.save()
         
             

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import User
 from app.models import App
+
 from django.http import HttpResponseRedirect
 from django.template import Context
 # Create your views here.
