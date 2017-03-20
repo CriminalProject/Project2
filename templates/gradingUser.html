@@ -6,7 +6,9 @@
   
       <div class="col-sm-3"> </div>
     <div class="col-sm-6">
+{%if flag == True%}
 	<h3>Who Are You ?</h3>
+
 {%if users%}
 <table id="usersTable" class="table">
 {% for user in users %}
@@ -29,6 +31,9 @@
 {% endif %}
 {% endfor %}
 </table>
+		{% endif %}
+		{%elif flag == False%}
+			<h3>Please Add More Pedestrian Restaurants before grading</h3>
 		{% endif %}
 		
 		</div>

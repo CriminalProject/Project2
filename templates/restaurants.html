@@ -38,6 +38,7 @@
         <th>Restaurant Name</th>
         <th>Avaiable in bad weather</th>
         <th>Mode of Transport</th>
+        <th>Service Counter</th>
         <th>Status</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -56,6 +57,7 @@
 			{%if restaurant.modeOfTransport is False%}
 			<td class="UsersModelItem">Pedestrian</td>
 			{%endif%}
+			<td class="UsersModelItem">{{restaurant.serviceCounter}}</td>
 			<td>
 			{%if restaurant.serviceStatus is True%}
 			<input id="modeOfTransport" name="modeOfTransport" type="checkbox" checked data-toggle="toggle" data-on="Active" data-off="Inactive" value ="{{restaurant.restName}}">

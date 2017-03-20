@@ -3,6 +3,7 @@ from .models import Restaurant
 from django.http import HttpResponseRedirect
 from django.template import Context
 from django.views.decorators.csrf import csrf_exempt
+from calculation.models import Calculation
 # Create your views here.
 def getRestaurant(request):  
     if request.method == 'POST':
@@ -40,10 +41,12 @@ def setStatus(request):
         restName = request.POST.get('name',None)
         newStatus = request.POST.get('status', None)
         if newStatus == "activated":
-            Restaurant.updateRestStatus(Restaurant,True,restName)
+            successFlag = Restaurant.updateRestStatus(Restaurant,True,restName)
         else:
-            Restaurant.updateRestStatus(Restaurant,False,restName)
+            successFlag = Restaurant.updateRestStatus(Restaurant,False,restName)
             
+        if successFlag == False:
+            Calculation.setRestCounters(Calculation)
         restaurants = Restaurant.getRestaurants(Restaurant)
         context = Context({'Restaurants' : restaurants})
         return render(request,'restaurants.html',context)

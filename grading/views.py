@@ -9,7 +9,8 @@ from django.template import Context
 
 def grading(request):
     users = User.getUsers(User)
-    context = Context({'users' : users})
+    gradingFlag = Restaurant.restaurantBalance(Restaurant)
+    context = Context({'users' : users,'flag':gradingFlag})
     return render(request,'gradingUser.html',context)
 
 def direct(request):
@@ -29,23 +30,43 @@ def getPoint(request):
         counter = 0
         user = User.objects.get(userName = gradUserName)
         for point in points:
-            counter = counter + int(point)
+            if point != '':
+                counter = counter + int(point)
             
         if counter <= user.userPoints:
-            
             i = 0
             for point in points:
-                 restN = inRestName[i]
-                 rest = Restaurant.objects.get(restName = restN)
-                 Points.newPoint(Points,user,rest,point)
-                 user.grade(int(point))
-                 i = i + 1 
-            enteredPoints = Points.objects.values() 
+                if point != '':
+                    restN = inRestName[i]
+                    rest = Restaurant.objects.get(restName = restN)
+                    Points.newPoint(Points,user,rest,point)
+                    user.grade(int(point))
+                i = i + 1 
             user.save()
-            somePoints = user.Points
-            context = Context({'Points' : enteredPoints})
+            row = []
+            returnList = []
+            enteredPoints = Points.objects.all()
+            for point in enteredPoints:
+                rest = point.restaurant.restName
+                user = point.user.userName
+                row = {'restaurant':rest,'user':user,'point':point.point}
+                returnList.append(row)
+            context = Context({'Points' : returnList})
             return render(request,'enteredPoints.html',context)
         else:
             restaurants = Restaurant.getRestaurants(Restaurant)
             context = Context({'Restaurants' : restaurants})
             return render(request,'restaurants.html',context)
+    else:
+        row = []
+        returnList = []
+        enteredPoints = Points.objects.all()
+        for point in enteredPoints:
+                rest = point.restaurant.restName
+                user = point.user.userName
+                row = {'restaurant':rest,'user':user,'point':point.point}
+                returnList.append(row)
+        context = Context({'Points' : returnList})
+        return render(request,'enteredPoints.html',context) 
+           
+           
