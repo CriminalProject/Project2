@@ -19,7 +19,9 @@ class App(models.Model):
         
     def countDown(self):
         if self.periodCounter == 0:
-            self.calculationCheck = False
+            app = App.getCR(App)
+            app.calculationCheck = False
+            app.save()
         else:
             app = App.getCR(App)
             app.periodCounter = app.periodCounter -1

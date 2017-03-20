@@ -88,13 +88,14 @@ class Restaurant(models.Model):
                     break
         while counter < 0:
             for rest in Restaurant.objects.filter(serviceStatus = True).order_by('-serviceCounter'):
-                rest.serviceCounter = rest.serviceCounter - 1
-                rest.save()
-                counter = counter +1
+                if rest.serviceCounter > 1:
+                    rest.serviceCounter = rest.serviceCounter - 1
+                    rest.save()
+                    counter = counter +1
                 if counter == 0:
                     break
                
-        vehicleRestaurants = Restaurant.objects.filter(modeOfTransport = True,serviceStatus = True)
+        vehicleRestaurants = Restaurant.objects.filter(modeOfTransport = True,serviceStatus = True,weatherCondition = True)
         vrestCounter = 0
         for vrest in vehicleRestaurants:
             vrestCounter = vrest.serviceCounter + vrestCounter
@@ -134,13 +135,32 @@ class Restaurant(models.Model):
                     
     def restaurantBalance(self):
         rests = Restaurant.objects.filter(serviceStatus = True).count()
+        if rests == 0:
+            return True
         vehicleRests = Restaurant.objects.filter(modeOfTransport = True,serviceStatus = True).count()
         if vehicleRests/rests > 0.8:
             return False
         else:
             return True
-
         
+    def terraceCheck(self):
+        rests = Restaurant.objects.filter(serviceStatus = True,serviceCounter__gt = 0).count()
+        if rests == 0:
+            return false
+        terraceRests = Restaurant.objects.filter(weatherCondition = True,serviceStatus = True,serviceCounter__gt = 0).count()
+        if terraceRests/rests >= 0.4:
+            return True
+        else:
+            return False
+    def vehicleCheck(self):
+        rests = Restaurant.objects.filter(modeOfTransport = True,serviceStatus = True,serviceCounter__gt = 0).count()
+        if rests == 0:
+            return False
+        vehicleRests = Restaurant.objects.filter(modeOfTransport = True,serviceStatus = True,serviceCounter__gt = 0).count()
+        if vehicleRests/rests >= 0.5:
+            return True
+        else:
+            return False        
     def resetServiceCounters(self):
         rests = Restaurant.objects.all()
         for rest in rests:

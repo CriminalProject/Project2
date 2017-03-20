@@ -27,7 +27,7 @@ def serviceRecord(request):
     counter = 1
     for record in Calculation.objects.all():
                 rest = Restaurant.objects.get(restName = record.restaurant.restName ) 
-                row = {'counter':counter,'restaurant':rest.restName,'date':record.date,'modeOfTransport':rest.modeOfTransport}
+                row = {'counter':counter,'restaurant':rest.restName,'date':record.date,'modeOfTransport':rest.modeOfTransport,'weather':record.weather.currentWeather}
                 counter = counter+1
                 returnList.append(row)
     context = Context({'Records' : returnList})

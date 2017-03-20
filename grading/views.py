@@ -54,7 +54,7 @@ def getPoint(request):
             context = Context({'Points' : returnList})
             return render(request,'enteredPoints.html',context)
         else:
-            restaurants = Restaurant.getRestaurants(Restaurant)
+            restaurants = Restaurant.getRestaurants(Restaurant).filter(serviceStatus = True)
             context = Context({'Restaurants' : restaurants})
             return render(request,'restaurants.html',context)
     else:
