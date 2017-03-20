@@ -105,11 +105,11 @@ class Restaurant(models.Model):
         totalDays = rules.periodCounter
         totalMonthsFloat = totalDays/30
         totalMonthsRound = math.ceil(totalMonthsFloat)
-        badWeatherProbability = ((30 - currentDay)*constantIstanbul[currentDate.month - 1])/totalDays
-        for  i in range(0,totalMonthsRound):
-            if (i - totalMonthsFloat) > 0:
-                badWeatherProbability = (30*(i - totalMonthsFloat)*constantIstanbul[currentDate.month - 1 + i])/totalDays + badWeatherProbability
-            badWeatherProbability = (30*constantIstanbul[currentDate.month - 1 + i])/totalDays + badWeatherProbability      
+        badWeatherProbability = ((30 - currentDay)*constantIstanbul[currentDate.month - 1])/30
+        for  i in range(1,totalMonthsRound):
+            if (i - totalMonthsFloat + 1) > 0:
+                badWeatherProbability = (30*(i - totalMonthsFloat)*constantIstanbul[currentDate.month - 1 + i])/30 + badWeatherProbability
+            badWeatherProbability = constantIstanbul[currentDate.month - 1 + i] + badWeatherProbability      
        
         
         if vrestCounter < int((rules.periodCounter/badWeatherProbability)):
@@ -124,7 +124,7 @@ class Restaurant(models.Model):
                     if counter == 0:
                         break
                     
-                for rest in Restaurant.objects.filter(modeOfTransport=True,serviceStatus = True).order_by('-serviceCounter'):
+                for rest in vehicleRestaurants.order_by('-serviceCounter'):
                     rest.serviceCounter = rest.serviceCounter + 1
                     rest.save()
                     transporBalanceCounter = transporBalanceCounter -1
