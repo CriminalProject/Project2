@@ -10,6 +10,8 @@
 	<h3>Who Are You ?</h3>
 
 {%if users%}
+<form action="/grading/reset/" method="POST">{% csrf_token %} <button type="submit" class="btn btn-default">Reset Grading</button>	
+	    </form>
 <table id="usersTable" class="table">
 {% for user in users %}
 {% if user.userPoints != 0%}

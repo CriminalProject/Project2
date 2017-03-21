@@ -17,7 +17,7 @@
 	<input type="hidden" name="restName[]" value="{{restaurant.restName}}">
 		<tr>
 				<td class="UsersModelItem"> {{restaurant.restName}} </td>
-				<td class="UsersModelItem"><input type="number" name="points[]" class="form-control" placeholder="0"> </td>
+				<td class="UsersModelItem"><input type="number" name="points[]" min="0" max = "50" class="form-control" placeholder="0"> </td>
 		</tr>
 	{% endfor %}
 

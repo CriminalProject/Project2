@@ -68,5 +68,9 @@ def getPoint(request):
                 returnList.append(row)
         context = Context({'Points' : returnList})
         return render(request,'enteredPoints.html',context) 
-           
+    
+    
+def resetGrading(request):
+    points = Points.objects.all().delete()
+    return HttpResponseRedirect('grading/')           
            

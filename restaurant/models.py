@@ -12,41 +12,46 @@ class Restaurant(models.Model):
     serviceCounter = models.IntegerField()
     
     def deleteRest(self,delRestName):
-        self.objects.get(restName = delRestName).delete()
+        status = Restaurant.updateRestStatus(Restaurant,False,delRestName)
+        if status == True:
+            self.objects.get(restName = delRestName).delete()
+            return True
+        else:
+            return False
         
     def updateRestStatus(self,newStatus,upRestName):
         rules = App.getCR(App)
         upRestaurant = self.objects.get(restName = upRestName)
         if rules.calculationCheck == True:
             if newStatus == False:
-                inactiveRests = self.objects.filter(serviceCounter__gt = 0,serviceStatus=False)
                 activeCounter = self.objects.filter(serviceCounter__gt = 0,serviceStatus=True).count()
-                for rest in inactiveRests:
-                    counter = rest.serviceCunter
-                    if activeCounter!= 0:
-                        for activeRest in self.objects.filter(serviceCounter__gt = 0,serviceStatus=True).order_by('-serviceCounter'):
-                            activeRest.serviceCounter = activeRest.serviceCounter+1
-                            counter = counter -1
-                            if counter == 0:
-                                break
-                    else:
-                        return False
+                counter = upRestaurant.serviceCounter
+                if activeCounter!= 0 and counter!= 0:
+                    for activeRest in self.objects.filter(serviceCounter__gt = 0,serviceStatus=True).order_by('-serviceCounter'):
+                        activeRest.serviceCounter = activeRest.serviceCounter+1
+                        activeRest.save()
+                        counter = counter -1
+                        if counter == 0:
+                            break
+                else:
+                    return False
                             
             else:
                 activeRests = self.objects.filter(serviceCounter__gt = 0,serviceStatus=True)
                 activeCounter = self.objects.filter(serviceCounter__gt = 0,serviceStatus=True).count()
-                for rest in activeRests:
-                    counter = rest.serviceCunter
-                    if activeCounter!= 0:
-                        for activeRest in self.objects.filter(serviceCounter__gt = 0,serviceStatus=True).order_by('-serviceCounter'):
-                            if activeRest.serviceCounter != 0:
-                                activeRest.serviceCounter = activeRest.serviceCounter-1
-                                counter = counter -1
-                            if counter == 0:
-                                break
+
+                counter = upRestaurant.serviceCounter
+                if activeCounter!= 0 and counter!= 0:
+                    for activeRest in self.objects.filter(serviceCounter__gt = 0,serviceStatus=True).order_by('-serviceCounter'):
+                        if activeRest.serviceCounter > 0:
+                            activeRest.serviceCounter = activeRest.serviceCounter-1
+                            activeRest.save()
+                            counter = counter -1
+                        if counter == 0:
+                            break
                             
-                    else:
-                        return False
+                else:
+                    return False
                         
         upRestaurant.serviceStatus = newStatus
         upRestaurant.save()
@@ -87,7 +92,7 @@ class Restaurant(models.Model):
                 if counter == 0:
                     break
         while counter < 0:
-            for rest in Restaurant.objects.filter(serviceStatus = True).order_by('-serviceCounter'):
+            for rest in Restaurant.objects.filter(serviceStatus = True).order_by('serviceCounter'):
                 if rest.serviceCounter > 1:
                     rest.serviceCounter = rest.serviceCounter - 1
                     rest.save()
@@ -118,7 +123,7 @@ class Restaurant(models.Model):
             transporBalanceCounter =   int((rules.periodCounter/badWeatherProbability)) - vrestCounter
             counter = transporBalanceCounter
             while transporBalanceCounter > 0:
-                for rest in Restaurant.objects.filter(modeOfTransport=False,serviceStatus = True).order_by('-serviceCounter'):
+                for rest in Restaurant.objects.filter(modeOfTransport=False,serviceStatus = True,weatherCondition = False).order_by('serviceCounter'):
                     rest.serviceCounter = rest.serviceCounter - 1
                     rest.save()
                     counter = counter -1
@@ -146,7 +151,7 @@ class Restaurant(models.Model):
     def terraceCheck(self):
         rests = Restaurant.objects.filter(serviceStatus = True,serviceCounter__gt = 0).count()
         if rests == 0:
-            return false
+            return False
         terraceRests = Restaurant.objects.filter(weatherCondition = True,serviceStatus = True,serviceCounter__gt = 0).count()
         if terraceRests/rests >= 0.4:
             return True
