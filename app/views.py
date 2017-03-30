@@ -11,11 +11,13 @@ from django.utils import timezone
 import datetime
 from django.core.mail import send_mail
 from _datetime import timedelta
+from datetime import date
 from django.template.context_processors import request
 from restaurant.models import Restaurant
 from tkinter.constants import CURRENT
 import requests
 from random import randint
+from calendar import weekday
 class ProcessThread(Thread):
     def __init__(self, name):
         Thread.__init__(self)
@@ -27,22 +29,22 @@ class ProcessThread(Thread):
         now = timezone.now()
         next = now + timedelta(minutes = 5)
         counter = currentCR.periodCounter
+ 
         while currentCR.periodCounter > 0 and currentCR.calculationCheck == True:
-            rand = randint(0, 10)
-            if rand > 5:
-                weatherCondition = False
-                Weather.setCurrent(Weather, 'bad')
-            else:
-                weatherCondition = True
-                Weather.setCurrent(Weather, 'good')
-            #weatherCondition = conditionCheck()
-            successFlag = Calculation.makePrediction(Calculation, weatherCondition)
-            currentCR.countDown()
-            if currentCR.periodCounter == 0:
-                break
-            time.sleep(2)
+            now = datetime.datetime.now()
+            day = now.weekday()
+            hour9= now.replace(hour=14, minute=30, second=0, microsecond=0)
+            hour10 = now.replace(hour=15, minute=30, second=0, microsecond=0)
+            if ( (day< 5) and ((now > hour9) and (now < hour10)) ) :
+                weatherCondition = conditionCheck()
+                successFlag = Calculation.makePrediction(Calculation, weatherCondition)
+                currentCR.countDown()
+                if currentCR.periodCounter == 0:
+                    break
+            time.sleep(1200)
         currentCR.calculationCheck = False
         currentCR.save()
+        
 def app(request):
     return render(request,'header.html')
 

@@ -8,6 +8,8 @@ import datetime
 from random import randint
 from django.template.defaultfilters import last
 from django.db.models import Q
+from django.core.mail import send_mail
+
 # Create your models here.
 
 
@@ -158,6 +160,9 @@ class Calculation(models.Model):
             finalRest.save()
             currentWeather = Weather.getCurrent(Weather)
             newCalculation = Calculation(restaurant=predictionRest,date = nowDate,weather = currentWeather)
+            currentUsers = User.objects.all()
+            for  u in currentUsers:
+                send_mail('Todays Restaurant','Todays restaurant is '+str(finalRest.restName),'neredeyesekinfo@gmail.com',[u.userEmail],fail_silently = False )
             newCalculation.save()
             return True
                 
